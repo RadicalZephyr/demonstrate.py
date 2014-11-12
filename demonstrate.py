@@ -33,7 +33,9 @@ def main(args):
 
     options = parser.parse_args(args)
 
-    # pty.spawn(options.command)
+    script_reader = make_reader(options.script)
+
+    pty.spawn(options.command, stdin_read=script_reader)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
