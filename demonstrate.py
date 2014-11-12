@@ -10,20 +10,33 @@ def readgen(fname):
             yield line
 
 def make_reader(file):
-    outfile = open("out.txt", "wb")
+
     scriptgen = readgen(file)
+    current_line = None
+    end_of_file = False
+
     def read_file_or_input(stdin):
         data = os.read(stdin, 1024)
-        outfile.write(b"Got: '")
 
-        # This works to identify it, but will probably not be portable
-        # at all!!!
-        if (data == b"\r"):
-            outfile.write(b"\\n")
-        else:
-            outfile.write(data)
+        if (current_line == None):
+            try:
+                current_line = scriptgen.next()
+            except StopIteration:
+                end_of_file = True
 
-        outfile.write(b"'\n")
+        if (not end_of_file):
+            x = len(data)
+            ret_data = current_line[:x]
+            current_line = current_line[x:]
+            data = ret_data
+
+        # # This works to identify it, but will probably not be portable
+        # # at all!!!
+        # if (data == b"\r"):
+        #     outfile.write(b"\\n")
+        # else:
+        #     outfile.write(data)
+
         return data
 
     return read_file_or_input
