@@ -35,7 +35,7 @@ def make_reader(file):
 
         if (current_line == None):
             try:
-                current_line = bytes(next(scriptgen), "utf-8")
+                current_line = bytes(next(scriptgen)[:-1], "utf-8")
             except StopIteration:
                 end_of_file = True
 
