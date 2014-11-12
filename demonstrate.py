@@ -10,17 +10,13 @@ def readgen(fname):
             yield line
 
 def make_reader(file):
+    outfile = open("out.txt", "wb")
     scriptgen = readgen(file)
     def read_file_or_input(stdin):
         data = os.read(stdin, 1024)
-
-        if (data == b"\n"):
-            try:
-                scriptdata = scriptgen.next()
-                return scriptdata
-            except StopIteration:
-                pass
-
+        outfile.write(b"Got: '")
+        outfile.write(data)
+        outfile.write(b"'\n")
         return data
 
     return read_file_or_input
