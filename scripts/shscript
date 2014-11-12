@@ -1,0 +1,9 @@
+echo "Hello Demonstratnig World!"
+
+echo $((1 + 2))
+
+FOO="this thing"
+
+echo $FOO
+
+echo This is where we are: $(pwd)

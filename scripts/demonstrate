@@ -1,0 +1,10 @@
+./demonstrate.sh scripts/script bash
+
+echo "See, this is kind of neat!"
+
+echo "And we can use it with any* interpreter"
+echo "*: not all interpreters have been tested :)"
+
+./demonstrate.sh scripts/pyscript python
+
+./demonstrate.sh scripts/irbscript irb

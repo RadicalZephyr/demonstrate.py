@@ -1,0 +1,8 @@
+import re
+import fileinput
+
+line = fileinput.input()
+
+print line
+print line.split(" ")
+
