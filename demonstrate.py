@@ -15,7 +15,12 @@ def make_reader(file):
     def read_file_or_input(stdin):
         data = os.read(stdin, 1024)
         outfile.write(b"Got: '")
-        outfile.write(data)
+
+        if (data == b"\x0D"):
+            outfile.write(b"\\n")
+        else:
+            outfile.write(data)
+
         outfile.write(b"'\n")
         return data
 
