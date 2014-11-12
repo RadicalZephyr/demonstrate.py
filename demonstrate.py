@@ -14,15 +14,13 @@ def make_reader(file):
     def read_file_or_input(stdin):
         data = os.read(stdin, 1024)
 
-        if (data == "\n"):
+        if (data == b"\n"):
             try:
                 scriptdata = scriptgen.next()
-                print("Returning: ", scriptdata)
                 return scriptdata
             except StopIteration:
                 pass
 
-        print("Returning: ", data)
         return data
 
     return read_file_or_input
