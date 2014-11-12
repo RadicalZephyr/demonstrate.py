@@ -14,17 +14,28 @@ def make_reader(file):
     scriptgen = readgen(file)
     current_line = None
     end_of_file = False
+    waiting_for_enter = False
 
     def read_file_or_input(stdin):
         nonlocal scriptgen
         nonlocal current_line
         nonlocal end_of_file
+        nonlocal waiting_for_enter
 
         data = os.read(stdin, 1024)
 
+        # # This works to identify an "enter", but will probably not be portable
+        # # at all!!!
+        if (waiting_for_enter):
+            if (data == b"\x0D"):
+                waiting_for_enter = False
+                return data
+            else:
+                return b''
+
         if (current_line == None):
             try:
-                current_line = next(scriptgen)
+                current_line = bytes(next(scriptgen), "utf-8")
             except StopIteration:
                 end_of_file = True
 
@@ -34,12 +45,10 @@ def make_reader(file):
             current_line = current_line[x:]
             data = ret_data
 
-        # # This works to identify it, but will probably not be portable
-        # # at all!!!
-        # if (data == b"\r"):
-        #     outfile.write(b"\\n")
-        # else:
-        #     outfile.write(data)
+            # Reset the line for the next iteration
+            if (len(current_line) == 0):
+                current_line = None
+                waiting_for_enter = True
 
         return data
 
