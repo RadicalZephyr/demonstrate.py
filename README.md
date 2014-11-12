@@ -1,4 +1,33 @@
 Demonstrate.py
 --------------
 
-Yet Another Demonstrate project. Using pseudo terminals...
+[![Made at Hacker School](http://img.shields.io/badge/Made_At-Hacker_School-brightgreen.svg)](http://shields.io/)
+
+Yet Another Demonstrate project. Using pseudo terminals, so the prompt
+for the interpreter doesn't need to be faked. Also, the input of each
+line is fake typed a la [hacker typer](http://hackertyper.com/).
+
+After the full line has been "typed" the script will silently eat
+input until the enter key is pressed. Blank lines in the script file
+will be silently ignored.
+
+Once all of the lines of input from the file have been consumed, the
+interpreter will keep running until it's fed two end of lines. Not
+sure why it takes two...
+
+An Example
+==========
+
+There are several demonstration scripts in the `scripts`
+directory. They're not very interesting actually...
+
+    ./demonstrate.py scripts/shscript sh
+
+
+# WARNING
+
+This script is PROBABLY NOT PORTABLE. I wrote it on a Mac, and the
+logic for looking for the enter key being pressed looks exactly for
+the byte `0x0D` a.k.a. `13` a.k.a. `\r` a.k.a. ASCII character `DC3`.
+This is clearly what my terminal sends, but it might not be true for
+yours...
