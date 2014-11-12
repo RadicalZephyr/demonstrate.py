@@ -45,6 +45,9 @@ def make_reader(file):
             current_line = current_line[x:]
             data = ret_data
 
+            if not data:
+                data = None
+
             # Reset the line for the next iteration
             if (len(current_line) == 0):
                 current_line = None
