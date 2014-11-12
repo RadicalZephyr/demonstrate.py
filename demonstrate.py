@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys, os, argparse
-import pty
+import mypty
 
 # Generator works with "with"
 def readgen(fname):
@@ -31,7 +31,7 @@ def make_reader(file):
                 waiting_for_enter = False
                 return data
             else:
-                return b''
+                return None
 
         if (current_line == None):
             try:
@@ -65,7 +65,7 @@ def main(args):
 
     script_reader = make_reader(options.script)
 
-    pty.spawn(options.command, stdin_read=script_reader)
+    mypty.spawn(options.command, stdin_read=script_reader)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
