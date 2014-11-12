@@ -1,14 +1,28 @@
 #!/usr/bin/env python3
 
-import sys, argparse
+import sys, os, argparse
 import pty
-
 
 # Generator works with "with"
 def readgen(fname):
     with open(fname, "r") as f:
         for line in f:
             yield line
+
+def make_reader(file):
+    scriptgen = readgen(file)
+    def read_file_or_input(stdin):
+        data = os.read(stdin, 1024)
+
+        if (data == "\n"):
+            try:
+                scriptdata = scriptgen.next()
+                return scriptdata
+            except StopIteration:
+                pass
+
+        return data
+    return read_file_or_input
 
 def main(args):
     parser = argparse.ArgumentParser(description="Demonstrate commands on demand.")
