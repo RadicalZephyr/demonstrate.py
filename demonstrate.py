@@ -16,7 +16,9 @@ def make_reader(file):
     end_of_file = False
 
     def read_file_or_input(stdin):
+        nonlocal scriptgen
         nonlocal current_line
+        nonlocal end_of_file
 
         data = os.read(stdin, 1024)
 
