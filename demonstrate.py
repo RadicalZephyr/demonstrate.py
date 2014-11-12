@@ -17,11 +17,14 @@ def make_reader(file):
         if (data == "\n"):
             try:
                 scriptdata = scriptgen.next()
+                print("Returning: ", scriptdata)
                 return scriptdata
             except StopIteration:
                 pass
 
+        print("Returning: ", data)
         return data
+
     return read_file_or_input
 
 def main(args):
