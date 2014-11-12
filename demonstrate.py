@@ -3,6 +3,13 @@
 import sys, argparse
 import pty
 
+
+# Generator works with "with"
+def readgen(fname):
+    with open(fname, "r") as f:
+        for line in f:
+            yield line
+
 def main(args):
     parser = argparse.ArgumentParser(description="Demonstrate commands on demand.")
     parser.add_argument('script', help='The script to draw commands from.')
