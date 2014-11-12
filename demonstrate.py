@@ -12,6 +12,7 @@ def main(args):
 
     options = parser.parse_args(args)
 
+    # pty.spawn(options.command)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
