@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys, os, argparse
+import random
 import mypty
 
 # Generator works with "with"
@@ -42,7 +43,7 @@ def make_reader(file):
                 end_of_file = True
 
         if (not end_of_file):
-            x = len(data)
+            x = len(data) + random.randint(0, 3)
             ret_data = current_line[:x]
             current_line = current_line[x:]
             data = ret_data
