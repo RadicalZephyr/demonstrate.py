@@ -4,9 +4,11 @@ import sys, argparse
 import pty
 
 def main(args):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('script')
-    parser.add_argument('command')
+    parser = argparse.ArgumentParser(description="Demonstrate commands on demand.")
+    parser.add_argument('script', help='The script to draw commands from.')
+    parser.add_argument('command', nargs='+',
+                        help='The interpreter (including any arguments to it)'
+                             'to run the lines from script in.')
 
     options = parser.parse_args(args)
 
