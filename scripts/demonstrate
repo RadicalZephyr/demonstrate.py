@@ -1,4 +1,4 @@
-./demonstrate.py scripts/script bash
+./demonstrate.py scripts/shscript bash
 
 echo "See, this is kind of neat!"
 
