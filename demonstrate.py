@@ -22,7 +22,7 @@ def make_reader(file):
 
         if (current_line == None):
             try:
-                current_line = scriptgen.next()
+                current_line = next(scriptgen)
             except StopIteration:
                 end_of_file = True
 
