@@ -16,6 +16,8 @@ def make_reader(file):
     end_of_file = False
 
     def read_file_or_input(stdin):
+        nonlocal current_line
+
         data = os.read(stdin, 1024)
 
         if (current_line == None):
