@@ -35,7 +35,9 @@ def make_reader(file):
 
         if (current_line == None):
             try:
-                current_line = bytes(next(scriptgen)[:-1], "utf-8")
+                # Try to skip blank lines
+                while not current_line:
+                    current_line = bytes(next(scriptgen)[:-1], "utf-8")
             except StopIteration:
                 end_of_file = True
 
