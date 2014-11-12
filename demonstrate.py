@@ -16,7 +16,9 @@ def make_reader(file):
         data = os.read(stdin, 1024)
         outfile.write(b"Got: '")
 
-        if (data == b"\x0D"):
+        # This works to identify it, but will probably not be portable
+        # at all!!!
+        if (data == b"\r"):
             outfile.write(b"\\n")
         else:
             outfile.write(data)
