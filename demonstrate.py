@@ -10,6 +10,9 @@ def readgen(fname):
         for line in f:
             yield line
 
+# This would be a class, because making a closure like this is sort of
+# awkward in Python.  I said "would" because as it turns out, when I
+# try to pass a class or class function as the function
 def make_reader(file):
 
     scriptgen = readgen(file)
