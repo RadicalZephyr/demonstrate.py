@@ -1,7 +1,7 @@
 Demonstrate.py
 --------------
 
-[![Made at Hacker School](http://img.shields.io/badge/Made_At-Hacker_School-brightgreen.svg)](http://shields.io/)
+[![Made at Hacker School](http://img.shields.io/badge/Made_At-Hacker_School-brightgreen.svg)](https://www.hackerschool.com)
 
 Yet another demonstrate project. This one uses pseudo terminals, so
 the prompt for the interpreter doesn't need to be faked. Also, the
