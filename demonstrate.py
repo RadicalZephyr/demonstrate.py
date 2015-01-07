@@ -44,13 +44,16 @@ class HackerReader:
         self.current_line = self.current_line[x:]
         return ret_data
 
+
     def is_ctrl_d(self, data):
         return data == b"\x04"
+
 
     def is_enter(self, data):
         # This works to identify an "enter", but will probably not be portable
         # at all!!!
         return (data == b"\x0D") or (data == b"\x0A") or (data == b"\x0D\x0A")
+
 
     def read(self, stdin):
         data = os.read(stdin, 1024)
