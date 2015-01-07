@@ -136,7 +136,7 @@ def _copy(master_fd, master_read=_read, stdin_read=_read):
         rfds, wfds, xfds = select(fds, [], [])
         if master_fd in rfds:
             data = master_read(master_fd)
-            if (data == None): # Don't copy
+            if data == None: # Don't copy
                 continue
             elif not data:  # Reached EOF.
                 fds.remove(master_fd)
@@ -144,7 +144,7 @@ def _copy(master_fd, master_read=_read, stdin_read=_read):
                 os.write(STDOUT_FILENO, data)
         if STDIN_FILENO in rfds:
             data = stdin_read(STDIN_FILENO)
-            if (data == None): # Don't copy
+            if data == None: # Don't copy
                 continue
             elif not data:
                 fds.remove(STDIN_FILENO)
