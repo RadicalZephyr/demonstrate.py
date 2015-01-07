@@ -20,6 +20,31 @@ class HackerReader:
         self.end_of_file = False
         self.waiting_for_enter = False
 
+
+    def ensure_current_line(self):
+        if (self.current_line == None):
+            try:
+                # Try to skip blank lines
+                while not self.current_line:
+                    self.current_line = bytes(next(self.scriptgen)[:-1], "utf-8")
+            except StopIteration:
+                self.end_of_file = True
+
+
+    def reset_line(self):
+        # Reset the line for the next iteration
+        if (len(self.current_line) == 0):
+            self.current_line = None
+            self.waiting_for_enter = True
+
+
+    def random_file_read(self, datalen):
+        x = datalen + random.randint(0, 3)
+        ret_data = self.current_line[:x]
+        self.current_line = self.current_line[x:]
+        return ret_data
+
+
     def read(self, stdin):
         data = os.read(stdin, 1024)
 
@@ -32,27 +57,16 @@ class HackerReader:
             else:
                 return None
 
-        if (self.current_line == None):
-            try:
-                # Try to skip blank lines
-                while not self.current_line:
-                    self.current_line = bytes(next(self.scriptgen)[:-1], "utf-8")
-            except StopIteration:
-                self.end_of_file = True
+        self.ensure_current_line()
 
         if (not self.end_of_file):
-            x = len(data) + random.randint(0, 3)
-            ret_data = self.current_line[:x]
-            self.current_line = self.current_line[x:]
-            data = ret_data
+
+            data = self.random_file_read(len(data))
 
             if not data:
                 data = None
 
-            # Reset the line for the next iteration
-            if (len(self.current_line) == 0):
-                self.current_line = None
-                self.waiting_for_enter = True
+            self.reset_line()
 
         return data
 
