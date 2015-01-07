@@ -47,16 +47,19 @@ class HackerReader:
     def is_ctrl_d(self, data):
         return data == b"\x04"
 
+    def is_enter(self, data):
+        # This works to identify an "enter", but will probably not be portable
+        # at all!!!
+        return data == b"\x0D"
+
     def read(self, stdin):
         data = os.read(stdin, 1024)
-
+        print (data[0])
         if self.is_ctrl_d(data):
             return self.done_char
 
-        # This works to identify an "enter", but will probably not be portable
-        # at all!!!
         if (self.waiting_for_enter):
-            if (data == b"\x0D"):
+            if self.is_enter(data):
                 self.waiting_for_enter = False
                 return data
             else:
