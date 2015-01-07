@@ -19,7 +19,7 @@ class HackerReader:
         self.current_line = None
         self.end_of_file = False
         self.waiting_for_enter = False
-
+        self.done_char = b"\x04\x04"
 
     def ensure_current_line(self):
         if (self.current_line == None):
@@ -44,9 +44,14 @@ class HackerReader:
         self.current_line = self.current_line[x:]
         return ret_data
 
+    def is_ctrl_d(self, data):
+        return data == b"\x04"
 
     def read(self, stdin):
         data = os.read(stdin, 1024)
+
+        if self.is_ctrl_d(data):
+            return self.done_char
 
         # This works to identify an "enter", but will probably not be portable
         # at all!!!
