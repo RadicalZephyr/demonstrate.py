@@ -20,6 +20,7 @@ class HackerReader:
         self.end_of_file = False
         self.waiting_for_enter = False
         self.done_char = b"\x04\x04"
+        self.input_mode = False
 
     def ensure_current_line(self):
         if (self.current_line == None):
@@ -45,6 +46,10 @@ class HackerReader:
         return ret_data
 
 
+    def is_esc(self, data):
+        return data == b"\x1B"
+
+
     def is_ctrl_d(self, data):
         return data == b"\x04"
 
@@ -57,9 +62,16 @@ class HackerReader:
 
     def read(self, stdin):
         data = os.read(stdin, 1024)
-        print (data[0])
+
         if self.is_ctrl_d(data):
             return self.done_char
+
+        if self.is_esc(data):
+            self.input_mode = not self.input_mode
+            return None
+
+        if (self.input_mode):
+            return data
 
         if (self.waiting_for_enter):
             if self.is_enter(data):
