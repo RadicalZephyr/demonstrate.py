@@ -25,34 +25,34 @@ class HackerReader:
 
         # This works to identify an "enter", but will probably not be portable
         # at all!!!
-        if (waiting_for_enter):
+        if (self.waiting_for_enter):
             if (data == b"\x0D"):
-                waiting_for_enter = False
+                self.waiting_for_enter = False
                 return data
             else:
                 return None
 
-        if (current_line == None):
+        if (self.current_line == None):
             try:
                 # Try to skip blank lines
-                while not current_line:
-                    current_line = bytes(next(scriptgen)[:-1], "utf-8")
+                while not self.current_line:
+                    self.current_line = bytes(next(self.scriptgen)[:-1], "utf-8")
             except StopIteration:
-                end_of_file = True
+                self.end_of_file = True
 
-        if (not end_of_file):
+        if (not self.end_of_file):
             x = len(data) + random.randint(0, 3)
-            ret_data = current_line[:x]
-            current_line = current_line[x:]
+            ret_data = self.current_line[:x]
+            self.current_line = self.current_line[x:]
             data = ret_data
 
             if not data:
                 data = None
 
             # Reset the line for the next iteration
-            if (len(current_line) == 0):
-                current_line = None
-                waiting_for_enter = True
+            if (len(self.current_line) == 0):
+                self.current_line = None
+                self.waiting_for_enter = True
 
         return data
 
