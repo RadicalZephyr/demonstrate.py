@@ -14,7 +14,7 @@ will be silently ignored.
 
 You can also switch into "input mode" at any time by hitting the `ESC`
 key. This means you can then use whatever line editing facilities your
-scripts interpreter provides (like readline hopefully), and type any
+chosen interpreter provides (like readline hopefully), and type any
 ad-libbed commands needed.  When you want to go back to demonstrating
 mode press `ESC` again.
 
