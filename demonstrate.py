@@ -2,7 +2,7 @@
 
 import sys, os, argparse
 import random
-import mypty
+import pty
 
 
 # Generator works with "with"
@@ -78,7 +78,7 @@ class HackerReader:
                 self.waiting_for_enter = False
                 return data
             else:
-                return None
+                return b"\0"
 
         self.ensure_current_line()
 
@@ -115,7 +115,7 @@ def main(args):
 
     script_reader = make_reader(options.script)
 
-    mypty.spawn(options.command, stdin_read=script_reader)
+    pty.spawn(options.command, stdin_read=script_reader)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
